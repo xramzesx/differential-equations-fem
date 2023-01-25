@@ -1,2 +1,3 @@
 pub mod calc;
-pub mod basis;
+pub mod fem;
+pub mod solver;

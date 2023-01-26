@@ -1,15 +1,11 @@
 use std::f64::consts::PI;
-use std::collections::HashMap;
 use std::hash::{Hash, Hasher};
-use std::collections::hash_map::DefaultHasher;
-use cached::proc_macro::cached;
 
 //// MAIN FUNCTIONS ////
 
 pub fn derivative ( 
     f : impl Fn(f64) -> f64  
-) -> impl Fn( f64 ) -> f64 {
-    // const H: f64 = 0.00001;    
+) -> impl Fn( f64 ) -> f64 {  
     const H: f64 = 0.0000000001;    
     return move |x| (f(x + H) - f(x - H)) / ( 2.0 * H )
 }
@@ -20,11 +16,6 @@ pub fn integrate (
     to: f64,
     points : i32
 ) -> f64 {
-
-    // if to <= from {
-    //     return 0f64;
-    // }
-
     let Roots{x, w} = get_roots(points, -1.0, 1.0);
     let p = (to - from) / 2f64;
     let q = (to + from) / 2f64;
@@ -73,7 +64,6 @@ unsafe fn insert_cached_roots (n1: &i32, x1: &Vec<f64>, w1 :&Vec<f64> ) {
 pub struct Roots {
     x: Vec<f64>, 
     w: Vec<f64>,
-
 }
 
 impl Hash for Roots {
@@ -87,18 +77,8 @@ impl Hash for Roots {
     }
 }
 
-
-pub struct Utils {
-    roots : HashMap<i32,Roots>
-}
-
-impl Utils {
-
-}
-
-
-
 pub fn get_roots ( n : i32, x1: f64, x2: f64 ) -> Roots {    
+    
     // let (mut x, mut w) : (Vec<f64>,Vec<f64>) = unsafe {
     //     get_cached_roots(&n)
     // };
@@ -151,6 +131,7 @@ pub fn get_roots ( n : i32, x1: f64, x2: f64 ) -> Roots {
         w[(n-1-i) as usize]=w[i as usize];
   
     }
+
     // unsafe {
     //     insert_cached_roots (&n, &x, &w);
     // }
@@ -173,7 +154,6 @@ pub mod tests {
         let ex: Vec<f64> = vec![0.42264973081037427, 1.5773502691896257 ];
         let ew: Vec<f64> = vec![1.0000000000000002, 1.0000000000000002 ];        
         
-        // let (x, w) = get_roots(2, 0.0, 2.0);
         let Roots{x, w} = get_roots(2, 0.0, 2.0);
 
         for i in 0..x.len() {

@@ -114,7 +114,7 @@ I podstawiamy ją do równania:
 
 \begin{equation}
     \eval{-v(x)u'(x)}_0^2 
-    20v(0) - v(0)
+    % 20v(0) - v(0)
     + \int_0^2 v'(x) u'(x) dx
     = \int_{0}^{1} \frac{100x}{x+1} v(x) dx
     + 50\int_{1}^{2} v(x) dx
@@ -128,10 +128,19 @@ I podstawiamy ją do równania:
     + 50\int_{1}^{2} v(x) dx
 \end{equation}
 % 
-Po uwzglednieniu warunków brzegowych otrzymujemy równanie:
+Po uwzględnieniu warunków brzegowych otrzymujemy równanie:
+\begin{equation} \label{eq:finish}
+    20v(0)
+    - v(0)u(0)    
+    + \int_0^2 v'(x) u'(x) dx
+    = 
+    \int_{0}^{1} \frac{100x}{x+1} v(x) dx
+    + 50\int_{1}^{2} v(x) dx
+\end{equation}
+% 
+Po pogrupowaniu elementów, otrzymujemy ostateczne równanie:
 \begin{equation} \label{eq:finish}
     \underbrace{
-        20v(0)
         - v(0)u(0)    
         + \int_0^2 v'(x) u'(x) dx
     }_{B(u,v)}
@@ -139,16 +148,18 @@ Po uwzglednieniu warunków brzegowych otrzymujemy równanie:
     \underbrace{
         \int_{0}^{1} \frac{100x}{x+1} v(x) dx
         + 50\int_{1}^{2} v(x) dx
+        - 20v(0)
     }_{L(v)}
 \end{equation}
-
+Na bazie którego konstruujemy funkcje $B(u,v)$ oraz $L(v)$
 \section{Konstruowanie podprzestrzeni elementów skończonych $V_h \subset V$}
-\subsection{Konstruowanie macierzy}
+\subsection{Podprzestrzeń $V_h$}
 Skoro po prawej stronie mamy warunek Dirichleta, a po lewej nie, za przestrzeń w której będziemy rozwiązywac ten problem przyjmujemy
 \begin{equation}
     V_h = \langle e_0, e_1, e_2, ..., e_{n-1}\rangle
 \end{equation}
 % 
+\subsection{Konstruowanie macierzy}
 Równanie liniowe w postaci macierzowej do którego sprowadza się odnalezienie
 \begin{equation}
     u = u_0e_0 + u_1e_1 + u_2e_2 + ... + u_{n-1}e_{n-1} \in V_h
@@ -220,5 +231,13 @@ Po podstawieniu do wzoru (\ref{eq:defaultBasis}), otrzymujemy finalny wzór na $
         0 & \text{wpp.}
     \end{cases}
 \end{equation}
-
+% 
+A także jej różniczkę:
+\begin{equation}
+    e_i = \begin{cases}
+        \frac{1}{h} & \text{dla } x \in (x_i - h, x_i] \\
+        -\frac{1}{h} & \text{dla } x \in (x_i, x_i+h) \\
+        0 & \text{wpp.}
+    \end{cases}
+\end{equation}
 \end{document}

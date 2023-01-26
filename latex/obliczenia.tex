@@ -8,6 +8,8 @@
 \usepackage[utf8]{inputenc}
 \usepackage{amsfonts}
 \usepackage{physics}
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
 
 \title{4.1 Równanie transportu ciepła}
 \author{Jakub Kędra}
@@ -240,4 +242,29 @@ A także jej różniczkę:
         0 & \text{wpp.}
     \end{cases}
 \end{equation}
+
+\section{Program}
+\subsection{Wykres (dla n = 1000)}
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{plot.png}
+
+
+\subsection{Kompilacja}
+Program został napisany w języku Rust. Aby go skompilować, w katalogu głównym aplikacji należy uruchomić polecenie
+\begin{verbatim}
+cargo build --release
+\end{verbatim}
+Skompilowany program znajduje się wewnątrz katalogu target/release
+
+\subsection{Uruchomienie}
+Przygotowany, skomilowany program znajduje się wewnątrz katalogu build.
+Aby uruchomić aplikację, należy z poziomu konsoli uruchomić polecenie:
+\begin{verbatim}
+.\fem.exe <n> <output>
+\end{verbatim}
+gdzie
+\begin{itemize}
+    \item n - wymagany parametr n
+    \item output - opcjonalny parametr, ścieżka do pliku wynikowego z wykresem, domyślnie output.png
+\end{itemize}
+
 \end{document}

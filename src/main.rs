@@ -6,7 +6,7 @@ use crate::utils::calc::integrate;
 
 fn main () -> Result<(), Box<dyn std::error::Error>>  {
     
-    let n = 5;
+    let n = 50;
     let from :f64 = 0.0;
     let to   :f64 = 2.0;
 
@@ -19,15 +19,8 @@ fn main () -> Result<(), Box<dyn std::error::Error>>  {
         e.push( get_e_i(from + i as f64 * h, h) );
     }
 
-    // let du = &e[0];
-    // let u = |x| integrate(&e[0], from, to, POINTS);
-    // let u = derivative( |x| e[0](x) * e[1](x));
-    // let du = |x| derivative( &e[1]) (x) * derivative( &e[0]) (x);
-    // let u = |x| x ;
-
     let mut max_v : f32 = 2.0;
     let mut min_v : f32 = -2.0;
-    // let mut min_v : f32 = std::f32::INFINITY;
 
     for x in -200..=200 {
         max_v = max_v.max( u( x as f64 / 100.0) as f32 );
@@ -47,6 +40,14 @@ fn main () -> Result<(), Box<dyn std::error::Error>>  {
         .build_cartesian_2d(0f32..2f32, min_v..(max_v + 1.0))?;
 
     chart.configure_mesh().draw()?;
+
+    // for i in 0..(e.len() as usize) {
+    //     chart
+    //         .draw_series(LineSeries::new(
+    //             (-100..=100).map(|x| x as f32 / 50.0).map(|x| (x, e[i](x as f64) as f32)),
+    //             &RED,
+    //         ));
+    //     }
 
     chart
         .draw_series(LineSeries::new(

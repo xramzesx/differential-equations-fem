@@ -20,6 +20,11 @@ pub fn integrate (
     to: f64,
     points : i32
 ) -> f64 {
+
+    // if to <= from {
+    //     return 0f64;
+    // }
+
     let Roots{x, w} = get_roots(points, -1.0, 1.0);
     let p = (to - from) / 2f64;
     let q = (to + from) / 2f64;
@@ -27,12 +32,8 @@ pub fn integrate (
     let mut sum = 0.0;
     
     for i in 0..x.len() {
-        // sum += w[i as usize] * f(x[i as usize]);
         sum += w[i as usize] * f(p * x[i as usize] + q);
-        // sum += w[i as usize] * f( from + to + x[i as usize] * (to - from)/2f64);
     }
-    // return sum * (to - from) / 2f64;
-    // return sum;
     return sum * p;
 } 
 
@@ -98,18 +99,18 @@ impl Utils {
 
 
 pub fn get_roots ( n : i32, x1: f64, x2: f64 ) -> Roots {    
-    let (mut x, mut w) : (Vec<f64>,Vec<f64>) = unsafe {
-        get_cached_roots(&n)
-    };
+    // let (mut x, mut w) : (Vec<f64>,Vec<f64>) = unsafe {
+    //     get_cached_roots(&n)
+    // };
     
-    let root_contains = unsafe { ROOT_NS.contains(&n) };
-    if root_contains {
-        return Roots{ x: x, w : w};
-    }
+    // let root_contains = unsafe { ROOT_NS.contains(&n) };
+    // if root_contains {
+    //     return Roots{ x: x, w : w};
+    // }
 
     const EPS: f64 = 1.0e-14;
-    // let mut x: Vec<f64> = vec![0.0; n as usize];
-    // let mut w: Vec<f64> = vec![0.0; n as usize];
+    let mut x: Vec<f64> = vec![0.0; n as usize];
+    let mut w: Vec<f64> = vec![0.0; n as usize];
     
     let xm: f64 = 0.5 * (x2 + x1); 
     let xl: f64 = 0.5 * (x2 - x1); 
@@ -150,11 +151,15 @@ pub fn get_roots ( n : i32, x1: f64, x2: f64 ) -> Roots {
         w[(n-1-i) as usize]=w[i as usize];
   
     }
-    unsafe {
-        insert_cached_roots (&n, &x, &w);
-    }
+    // unsafe {
+    //     insert_cached_roots (&n, &x, &w);
+    // }
     return Roots{x : x, w : w};
 }
+
+
+
+
 
 //// TESTS ////
 
@@ -176,4 +181,6 @@ pub mod tests {
             assert_eq!(ew[i as usize], w[i as usize]);
         }
     }
+
 }
+

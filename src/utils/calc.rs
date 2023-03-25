@@ -78,6 +78,15 @@ impl Hash for Roots {
 }
 
 pub fn get_roots ( n : i32, x1: f64, x2: f64 ) -> Roots {    
+    //// TODO: make it works ////////////////////////////////////////
+    // This part of the code is unsafe and was created for caching 
+    // repeated results. Unfortunately, there were some bugs 
+    // related to storing smth as a global, mutable variable in Rust.
+    //
+    // Although this part of the code sometimes works, it is 
+    // kept for potential future contributors who may want 
+    // to reuse this project.
+    ////////////////////////////////////////////////////////////////
     
     // let (mut x, mut w) : (Vec<f64>,Vec<f64>) = unsafe {
     //     get_cached_roots(&n)
@@ -131,7 +140,7 @@ pub fn get_roots ( n : i32, x1: f64, x2: f64 ) -> Roots {
         w[(n-1-i) as usize]=w[i as usize];
   
     }
-
+    // TODO: make it works
     // unsafe {
     //     insert_cached_roots (&n, &x, &w);
     // }
